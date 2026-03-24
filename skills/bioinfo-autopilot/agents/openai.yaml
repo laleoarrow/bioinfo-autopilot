@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bioinfo Autopilot"
+  short_description: "Official-doc-first bioinformatics workflow runner with accuracy-locked, coherence-checked manuscript polishing"
+  default_prompt: "Use $bioinfo-autopilot to verify official docs first, lock the numbers and guideline contract, run the full bioinformatics workflow end-to-end, and then turn validated results into journal-ready prose, tables, QC notes, and whole-manuscript coherence checks."

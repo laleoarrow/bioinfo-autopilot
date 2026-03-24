@@ -1,0 +1,8 @@
+{
+  "name": "bioinfo-autopilot",
+  "version": "1.0.0",
+  "description": "End-to-end automation of bioinformatics workflows with official-doc verification, reproducible completion, and evidence-backed interpretation",
+  "author": "laleoarrow",
+  "keywords": ["bioinformatics", "gwas", "rna-seq", "single-cell", "cohort", "automation", "ai-agent"],
+  "license": "MIT"
+}
