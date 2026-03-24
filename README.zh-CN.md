@@ -1,71 +1,78 @@
 # bioinfo-autopilot
 
-### 生信自动执行 — 端到端分析自动化
+### 生信自动执行 — 官方文档优先，杜绝幻觉
 
 **[🇺🇸 English](README.md)** | **🇨🇳 中文**
 
 <p>
   <img src="https://img.shields.io/badge/Claude_Code-black?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code">
   <img src="https://img.shields.io/badge/OpenAI_Codex_CLI-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI Codex CLI">
-  <img src="https://img.shields.io/badge/Workflow-GWAS-blue?style=flat-square" alt="GWAS">
-  <img src="https://img.shields.io/badge/Workflow-RNA--seq-green?style=flat-square" alt="RNA-seq">
+  <img src="https://img.shields.io/badge/No_Hallucination-red?style=flat-square" alt="杜绝幻觉">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
-> 端到端自动化生信工作流：GWAS、RNA-seq、单细胞、队列分析等。官方文档验证、可复现完成、证据支撑解读。
+> **任何涉及生物信息软件、概念的问题，必须先查官方文档，再回答。** 避免 AI 在生物信息领域产生幻觉，保持科学准确性。
 
-一个 AI Agent 生信分析自动化技能。负责分析直到工作流可复现且科学上可靠。
+一个 AI Agent 技能，强制要求对任何生信相关任务执行**官方文档优先**原则。防止幻觉，确保科学准确性。
+
+## 为什么需要这个 Skill
+
+AI 在生物信息领域的三大问题：
+
+| 问题 | 表现 | 后果 |
+|------|------|------|
+| **幻觉参数** | 编造不存在的参数、默认值 | 分析结果不可信 |
+| **过时信息** | 用训练数据中的旧版本信息 | 与最新工具不兼容 |
+| **概念混淆** | 混淆相似概念（如 FDR vs FWE） | 统计方法错误 |
+
+**bioinfo-autopilot 强制要求**：涉及任何生物信息软件、概念时，必须先查阅官方文档，验证后再回答。
 
 ## 工作流程
 
 ```
-用户调用 bioinfo-autopilot
+用户提出生物信息相关问题
                 ↓
         ┌───────────────────┐
-        │   预跑检查        │
-        │  - 工具版本       │
-        │  - 输入清单       │
-        │  - 预期输出       │
+        │  官方文档检查      │
+        │  - 软件官方文档   │
+        │  - Bioconductor   │
+        │  - 原始 paper     │
         └───────────────────┘
                 ↓
-           执行分析
+         ┌─ 有文档 → 验证后回答
+         │
+         └─ 无文档 → 搜索官方来源 → 验证后回答
                 ↓
-         ┌─ 成功 → QC 检查 → 交付
-         │
-         └─ 失败
+           科学证据链检查
                 ↓
-         自动加载 pua-academic
-                ↓
-         ┌─ L1 Lab Meeting → 切换假设
+         ┌─ 成功 → 交付
          │
-         ├─ L2 Reviewer 2 → 3 个竞争假设
-         │
-         ├─ L3 Grant Revision → 7 项检查清单
-         │
-         └─ L4 Editorial Rejection → 换工具
+         └─ 失败 → 加载 pua-academic
 ```
 
-## 支持的工作流
+## 核心原则：官方文档优先
 
-| 工作流 | 描述 |
-|--------|------|
-| **GWAS** | QC → 关联分析 → 注释 → 可视化 |
-| **RNA-seq** | QC → 比对 → 定量 → 差异分析 |
-| **单细胞** | QC → 聚类 → 注释 → 差异分析 |
-| **队列分析** | 数据准备 → 分析 → 生存分析 → 可视化 |
-| **Meta 分析** | 调和 → 聚合 → Forest 图 |
+### 适用范围（不限于此）
 
-## 核心能力
+**任何涉及以下内容的问题，都必须先查官方文档：**
 
-### 1. 官方文档优先
+- 🧬 **基因组学工具**: PLINK, BCFtools, SAMtools, GATK, Minimap2...
+- 📊 **R/Bioconductor 包**: DESeq2, edgeR, limma, Seurat, SingleCellExperiment...
+- 🐍 **Python 生信库**: scanpy, pysam, biopython, anndata...
+- 📈 **统计方法**: 多重检验校正、混合模型、生存分析、Meta 分析...
+- 🗄️ **数据库**: Ensembl, UCSC, dbSNP, GTEx, UK Biobank...
+- 🔬 **实验设计**: 样本量计算、效力分析、批次效应...
 
-在修改任何命令、参数或假设之前：
-1. 识别工作流中的所有工具
-2. 打开官方文档
-3. 验证输入字段、参数、输出语义
-4. 记录链接和关键约束
+### 执行规则
 
-### 2. 科学证据链
+```
+规则 1: 识别工具/概念 → 搜索官方文档 → 验证参数/用法 → 再回答
+规则 2: 优先级：官方文档 > 原始 paper > 教程 > 博客
+规则 3: 记录来源链接，便于追溯
+规则 4: 版本敏感，必须确认当前版本的行为
+```
+
+### 证据链检查
 
 在声明结果可信之前，验证：
 - **数据溯源**：原始输入、基因组版本、注释版本
@@ -75,7 +82,7 @@
 - **阶段间完整性**：计数追踪、损失解释
 - **解释边界**：结论不超出数据支撑
 
-### 3. 压力升级（配合 pua-academic）
+### 压力升级（配合 pua-academic）
 
 | 尝试次数 | 等级 | 学术模式 | 必须响应 |
 |---------|------|----------|----------|
@@ -211,9 +218,31 @@ ls ~/.codex/skills/ | grep -E "bioinfo-autopilot|pua-academic"
 
 ## 相关 Skills
 
-- **pua-academic**：分析失败时的学术压力引擎
-- **academic-editing**：证据锁定后的稿件润色
-- **gwas-plink-trans-ancestry**：跨祖源 GWAS meta 分析
+| Skill | 用途 | GitHub |
+|-------|------|--------|
+| **pua-academic** | 学术压力引擎，分析失败时加载 | https://github.com/laleoarrow/pua-academic |
+| **academic-editing** | 论文润色，证据锁定后调用 | https://github.com/laleoarrow/academic-editing |
+
+### Skill 协作流程
+
+```
+┌─────────────────────────────────────────────────────┐
+│  bioinfo-autopilot                                  │
+│  官方文档优先，执行生信分析                          │
+│                                                      │
+│  失败时 ↓ 加载                                       │
+│  ┌─────────────────────────────────────────────┐    │
+│  │  pua-academic                                │    │
+│  │  学术压力引擎（Reviewer 2 / Lab Meeting）    │    │
+│  └─────────────────────────────────────────────┘    │
+│                                                      │
+│  证据锁定后 ↓ 调用                                   │
+│  ┌─────────────────────────────────────────────┐    │
+│  │  academic-editing                            │    │
+│  │  论文润色（稿件级文本处理）                  │    │
+│  └─────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────┘
+```
 
 ## License
 

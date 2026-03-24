@@ -1,81 +1,88 @@
 # bioinfo-autopilot
 
-### Bioinformatics Autopilot — End-to-End Analysis Automation
+### Bioinformatics Autopilot — Official-Docs-First, No Hallucination
 
 **[🇨🇳 中文](README.zh-CN.md)** | **🇺🇸 English**
 
 <p>
   <img src="https://img.shields.io/badge/Claude_Code-black?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code">
   <img src="https://img.shields.io/badge/OpenAI_Codex_CLI-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI Codex CLI">
-  <img src="https://img.shields.io/badge/Workflow-GWAS-blue?style=flat-square" alt="GWAS">
-  <img src="https://img.shields.io/badge/Workflow-RNA--seq-green?style=flat-square" alt="RNA-seq">
+  <img src="https://img.shields.io/badge/No_Hallucination-red?style=flat-square" alt="No Hallucination">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
-> End-to-end automation of bioinformatics workflows: GWAS, RNA-seq, single-cell, cohort analysis, and more. Official-doc verified, reproducible completion, evidence-backed interpretation.
+> **任何涉及生物信息软件、概念的问题，必须先查官方文档，再回答。** 避免 AI 在生物信息领域产生幻觉，保持科学准确性。
 
-An AI Agent skill for automated bioinformatics analysis. Owns the analysis until the workflow is reproducible and scientifically defensible.
+An AI Agent skill that enforces **official-docs-first** for any bioinformatics-related task. Prevents hallucination and ensures scientific accuracy.
+
+## Why This Skill Matters
+
+AI 在生物信息领域的三大问题：
+
+| 问题 | 表现 | 后果 |
+|------|------|------|
+| **幻觉参数** | 编造不存在的参数、默认值 | 分析结果不可信 |
+| **过时信息** | 用训练数据中的旧版本信息 | 与最新工具不兼容 |
+| **概念混淆** | 混淆相似概念（如 FDR vs FWE） | 统计方法错误 |
+
+**bioinfo-autopilot 强制要求**：涉及任何生物信息软件、概念时，必须先查阅官方文档，验证后再回答。
 
 ## Workflow
 
 ```
-User invokes bioinfo-autopilot
+用户提出生物信息相关问题
                 ↓
         ┌───────────────────┐
-        │  Preflight Check  │
-        │  - Tool versions  │
-        │  - Input inventory│
-        │  - Expected output│
+        │  官方文档检查      │
+        │  - 软件官方文档   │
+        │  - Bioconductor   │
+        │  - 原始 paper     │
         └───────────────────┘
                 ↓
-           Execute Analysis
+         ┌─ 有文档 → 验证后回答
+         │
+         └─ 无文档 → 搜索官方来源 → 验证后回答
                 ↓
-         ┌─ Success → QC Check → Deliver
-         │
-         └─ Failure
+           科学证据链检查
                 ↓
-         Auto-load pua-academic
-                ↓
-         ┌─ L1 Lab Meeting → Switch hypothesis
+         ┌─ 成功 → 交付
          │
-         ├─ L2 Reviewer 2 → 3 competing hypotheses
-         │
-         ├─ L3 Grant Revision → 7-item checklist
-         │
-         └─ L4 Editorial Rejection → Switch tools
+         └─ 失败 → 加载 pua-academic
 ```
 
-## Supported Workflows
+## Core Principle: Official-Docs-First
 
-| Workflow | Description |
-|----------|-------------|
-| **GWAS** | QC → Association → Annotation → Visualization |
-| **RNA-seq** | QC → Alignment → Quantification → DE Analysis |
-| **Single-cell** | QC → Clustering → Annotation → Differential |
-| **Cohort** | Data prep → Analysis → Survival → Visualization |
-| **Meta-analysis** | Harmonization → Aggregation → Forest plots |
+### 适用范围（不限于此）
 
-## Core Capabilities
+**任何涉及以下内容的问题，都必须先查官方文档：**
 
-### 1. Official-Docs-First
+- 🧬 **基因组学工具**: PLINK, BCFtools, SAMtools, GATK, Minimap2...
+- 📊 **R/Bioconductor 包**: DESeq2, edgeR, limma, Seurat, SingleCellExperiment...
+- 🐍 **Python 生信库**: scanpy, pysam, biopython, anndata...
+- 📈 **统计方法**: 多重检验校正、混合模型、生存分析、Meta 分析...
+- 🗄️ **数据库**: Ensembl, UCSC, dbSNP, GTEx, UK Biobank...
+- 🔬 **实验设计**: 样本量计算、效力分析、批次效应...
 
-Before changing any command, parameter, or assumption:
-1. Identify all tools in the workflow
-2. Open official documentation
-3. Verify input fields, flags, output semantics
-4. Record links and key constraints
+### 执行规则
 
-### 2. Scientific Evidence Chain
+```
+规则 1: 识别工具/概念 → 搜索官方文档 → 验证参数/用法 → 再回答
+规则 2: 优先级：官方文档 > 原始 paper > 教程 > 博客
+规则 3: 记录来源链接，便于追溯
+规则 4: 版本敏感，必须确认当前版本的行为
+```
 
-Before declaring a result trustworthy, verify:
-- **Data provenance**: raw inputs, genome build, annotation release
-- **Method contract**: commands match official source
-- **Design contract**: covariates, contrasts match study question
-- **Diagnostic evidence**: QC outputs show expected behavior
-- **Stage-to-stage integrity**: counts tracked, losses explained
-- **Interpretation boundary**: conclusion doesn't overreach data
+### 证据链检查
 
-### 3. Pressure Escalation (with pua-academic)
+在声明结果可信之前，验证：
+- **数据溯源**：原始输入、基因组版本、注释版本
+- **方法契约**：命令与官方来源匹配
+- **设计契约**：协变量、对比与研究问题匹配
+- **诊断证据**：QC 输出显示预期行为
+- **阶段间完整性**：计数追踪、损失解释
+- **解释边界**：结论不超出数据支撑
+
+### 压力升级（配合 pua-academic）
 
 | Attempt | Level | Academic Mode | Required Response |
 |---------|-------|---------------|-------------------|
@@ -211,9 +218,31 @@ When user starts with `btw` or `/btw`:
 
 ## Related Skills
 
-- **pua-academic**: Academic pressure engine for failed analyses
-- **academic-editing**: Manuscript polishing after evidence lock
-- **gwas-plink-trans-ancestry**: Trans-ancestry GWAS meta-analysis
+| Skill | Purpose | GitHub |
+|-------|---------|--------|
+| **pua-academic** | 学术压力引擎，分析失败时加载 | https://github.com/laleoarrow/pua-academic |
+| **academic-editing** | 论文润色，证据锁定后调用 | https://github.com/laleoarrow/academic-editing |
+
+### Skill 协作流程
+
+```
+┌─────────────────────────────────────────────────────┐
+│  bioinfo-autopilot                                  │
+│  官方文档优先，执行生信分析                          │
+│                                                      │
+│  失败时 ↓ 加载                                       │
+│  ┌─────────────────────────────────────────────┐    │
+│  │  pua-academic                                │    │
+│  │  学术压力引擎（Reviewer 2 / Lab Meeting）    │    │
+│  └─────────────────────────────────────────────┘    │
+│                                                      │
+│  证据锁定后 ↓ 调用                                   │
+│  ┌─────────────────────────────────────────────┐    │
+│  │  academic-editing                            │    │
+│  │  论文润色（稿件级文本处理）                  │    │
+│  └─────────────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────┘
+```
 
 ## License
 
