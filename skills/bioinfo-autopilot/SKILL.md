@@ -1,12 +1,26 @@
 ---
 name: bioinfo-autopilot
-description: "Use when users need end-to-end automation of bioinformatics or quantitative biomedical analysis workflows (GWAS, sequencing, expression, annotation, meta-analysis, cohort/survival analysis, clinical epidemiology, etc.), including official-doc verification, implementation, debugging, reruns, reproducible completion, QC, and evidence-backed interpretation, or when they explicitly invoke `btw` / `/btw` side-thread questions."
+description: "Use when bioinformatics or quantitative biomedical workflows need end-to-end execution, reruns, QC, primary-source verification, or evidence-backed interpretation, or when users explicitly invoke `btw` side-thread questions."
 ---
 
 # Bioinfo Autopilot / 生信自动执行
 
 ## Overview / 概览
 Bioinfo Autopilot helps finish bioinformatics work end-to-end: analysis design, implementation, reruns, QC, and evidence-backed interpretation. It owns the analysis until the workflow is reproducible and scientifically defensible. For broader prose, hand off to `academic-editing`. For user-initiated side questions, use the BTW side thread defined below.
+
+## When to Use / 适用场景
+- The task spans design, implementation, reruns, QC, and final interpretation rather than a one-off command.
+- Tool flags, file formats, or output semantics need official-doc verification before editing scripts.
+- A workflow has repeated failures, suspicious QC, or technically successful output that may still be scientifically wrong.
+- The user explicitly starts a message with `btw`, `/btw`, `btw mode`, or `/btw mode`.
+
+## Quick Reference / 快速参考
+| Signal | Required response |
+|---|---|
+| Unknown flag, format, or output meaning | Verify the official source before editing or interpreting. |
+| Repeated same-pattern failure | Stop parameter-only nudges and switch hypothesis class. |
+| Exit 0 but QC looks implausible | Refuse completion and trace the earliest broken stage. |
+| Broader prose or manuscript writing needed | Hand off to `academic-editing` after evidence lock. |
 
 ## Core Rules / 核心规则
 1. Verify official docs before changing commands, parameters, formats, or assumptions.
@@ -34,7 +48,7 @@ Bioinfo Autopilot helps finish bioinformatics work end-to-end: analysis design, 
 4. If a tool is not listed, search the web immediately for the official manual, official repository, official package page, or vendor/consortium documentation before editing anything.
 5. Record links and key constraints before editing scripts.
 
-Read: `/Users/leoarrow/.cc-switch/skills/bioinfo-autopilot/references/official-sources.md`.
+Read: `references/official-sources.md`.
 
 ## Preflight Manifest / 预跑清单
 Before the first full run, record:
@@ -66,7 +80,7 @@ Before the first full run, record:
 
 ## Workflow-Specific QA Gates / 工作流特异 QA
 Start with:
-`/Users/leoarrow/.cc-switch/skills/bioinfo-autopilot/references/workflow-qc-gates.md`
+`references/workflow-qc-gates.md`
 
 Then load only the single most relevant workflow gate file for the current task. Load a second gate file only if the task truly spans two workflows.
 
@@ -75,7 +89,7 @@ Do not read every gate file by default. This skill should narrow to the concrete
 ## Pressure Mechanism / 学术压力机制
 When failure repeats, QC looks suspicious, or the workflow stalls, **automatically load `pua-academic` skill** to apply academic pressure.
 
-Read: `/Users/leoarrow/.cc-switch/skills/pua-academic/SKILL.md`
+Read the `pua-academic` skill from this skill set rather than relying on an external absolute path.
 
 ### Pressure Escalation Ladder / 压力升级阶梯
 
@@ -194,7 +208,7 @@ Before saying "done", ask:
 
 ## Self-Test / 自测
 Before claiming this skill is improved, run at least one pressure scenario from:
-`/Users/leoarrow/.cc-switch/skills/bioinfo-autopilot/references/pressure-scenarios.md`
+`references/pressure-scenarios.md`
 
 Pass only if the run shows all of the following:
 - The agent changes hypothesis class after repeated same-pattern failure.
