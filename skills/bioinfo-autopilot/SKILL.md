@@ -50,6 +50,23 @@ Bioinfo Autopilot helps finish bioinformatics work end-to-end: analysis design, 
 
 Read: `references/official-sources.md`.
 
+### Documentation Gate / 文档闸门
+For unfamiliar or unstable plotting/reporting packages, do not start implementation until you have recorded:
+- Package version.
+- Official vignette/manual/repo link.
+- Key function contracts.
+- Known limitations.
+- A minimal runnable example.
+
+### Graphics Workflow Gate / 图形工作流闸门
+For `ggplot2`, `forestploter`, `ComplexHeatmap`, `survminer`, and similar plotting/reporting packages:
+1. Run the official minimal example first.
+2. Make the smallest change needed to reproduce the target layout.
+3. Only then connect the code to project data.
+
+### R Code Routing / R 代码路由
+When editing `.R`, `.Rmd`, or R package code, invoke `leo-r-style` before making changes unless the user explicitly opts out of that style.
+
 ## Preflight Manifest / 预跑清单
 Before the first full run, record:
 - Workflow type and target deliverables.
@@ -61,8 +78,8 @@ Before the first full run, record:
 
 ## Execution Procedure / 执行流程
 1. Inspect current scripts/config and dataset schema.
-2. Define the intended final artifacts, key QC metrics, and deterministic rerun command before editing anything.
-3. Apply minimal, targeted edits.
+2. Define the intended final artifacts, key QC metrics, and deterministic rerun command before editing anything. For unfamiliar or unstable plotting/reporting packages, post a first-source ledger to the user before the first code edit: which official sources were checked, which version is in scope, which behaviors are doc-confirmed, and which are inferred from source.
+3. Apply minimal, targeted edits only after the first-source ledger is posted.
 4. Run syntax checks first.
 5. Run full pipeline command(s).
 6. Tail logs continuously and inspect intermediate artifacts, not just the final exit code.
