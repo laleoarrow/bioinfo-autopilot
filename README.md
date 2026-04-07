@@ -2,8 +2,6 @@
 
 ### 生信自动执行 — 官方文档优先，杜绝幻觉
 
-**🇨🇳 中文**
-
 <p>
   <img src="https://img.shields.io/badge/Claude_Code-black?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code">
   <img src="https://img.shields.io/badge/OpenAI_Codex_CLI-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI Codex CLI">
