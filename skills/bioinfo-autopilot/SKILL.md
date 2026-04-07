@@ -6,7 +6,25 @@ description: "Use when bioinformatics or quantitative biomedical workflows need 
 # Bioinfo Autopilot / 生信自动执行
 
 ## Overview / 概览
-Bioinfo Autopilot helps finish bioinformatics work end-to-end: analysis design, implementation, reruns, QC, and evidence-backed interpretation. It owns the analysis until the workflow is reproducible and scientifically defensible. For broader prose, hand off to `academic-editing`. For user-initiated side questions, use the BTW side thread defined below.
+Bioinfo Autopilot helps finish bioinformatics work end-to-end: analysis design, implementation, reruns, QC, and evidence-backed interpretation. It owns the analysis until the workflow is reproducible and scientifically defensible. For broader prose, including introduction/discussion framing, title/abstract writing, and journal-facing Data Availability language, hand off to `academic-editing` after the evidence lock. For user-initiated side questions, use the BTW side thread defined below.
+
+## Internal Vendor Routing / 内部 vendor 路由
+Bioinfo Autopilot is the user-facing entry point for bioinformatics routing on this machine. Do not require the user to understand vendor leaf skills or select `bioskills` manually.
+
+When a task needs narrower imported guidance:
+1. Check first-party local skills first.
+   - `academic-editing`
+   - `leo-r-style`
+   - `extract-r-package-code`
+   - this skill's own execution, QC, and interpretation workflow
+2. Read `../../vendor/README.md` if the vendor source, install path, or expected layout is unclear.
+3. If no first-party skill is specific enough, check for the vendor catalog:
+   - Preferred: adapted cc-switch vendor catalog under `~/.cc-switch/vendor/bioskills-library/`.
+   - Fallback: repo-local upstream clone under `../../vendor/bioSkills/`.
+   - If neither exists on the current host, skip vendor routing and rely on first-party skills + web search for official docs.
+4. Narrow the domain through the smallest relevant category index available in that vendor copy, then open only the smallest relevant subset of leaf `SKILL.md` files.
+5. Adapt vendor guidance in-session instead of exposing vendor skills as separate top-level choices.
+6. Keep imported catalog content under `vendor/`; do not recreate or flatten it into host-visible top-level skill directories.
 
 ## When to Use / 适用场景
 - The task spans design, implementation, reruns, QC, and final interpretation rather than a one-off command.
@@ -21,6 +39,7 @@ Bioinfo Autopilot helps finish bioinformatics work end-to-end: analysis design, 
 | Repeated same-pattern failure | Stop parameter-only nudges and switch hypothesis class. |
 | Exit 0 but QC looks implausible | Refuse completion and trace the earliest broken stage. |
 | Broader prose or manuscript writing needed | Hand off to `academic-editing` after evidence lock. |
+| The task starts drifting into introduction/discussion narrative | Stop at the evidence lock and hand off the prose layer to `academic-editing`. |
 
 ## Core Rules / 核心规则
 1. Verify official docs before changing commands, parameters, formats, or assumptions.
@@ -36,6 +55,8 @@ Bioinfo Autopilot helps finish bioinformatics work end-to-end: analysis design, 
 11. When the task is to implement or code a new concept, method, or statistical idea, explain it briefly and clearly first if the user seems unsure, then keep the explanation on the main task.
 12. If that explanation would become too complex or uncertain, give a short prompt for a new agent or ChatGPT to help the user understand it there first, then return to the main task.
 13. `btw` is a user-triggered side-thread mode: when a user starts a message with `btw`, `/btw`, `btw mode`, or `/btw mode`, treat that whole message as the BTW prompt, open or resume a dedicated subagent, seed it with a compact memory packet (task overview, current state, key constraints, and the last 3 messages) plus the side question, and keep the main line unchanged.
+14. Do not draft journal-facing introduction paragraphs, discussion framing, novelty claims, or polished Data Availability statements in this skill. Produce an evidence lock or factual note and route the prose layer to `academic-editing`.
+15. If you create a markdown note or sidecar file only to explain the project to the user, default that note to Chinese unless the user explicitly asks for English. Keep manuscript-facing, submission-facing, or collaborator-facing deliverables in the target manuscript language instead.
 
 ## Official-Docs-First Procedure / 先核对官方文档
 1. Identify all tools touched by the workflow.
@@ -71,7 +92,7 @@ When editing `.R`, `.Rmd`, or R package code, invoke `leo-r-style` before making
 Before the first full run, record:
 - Workflow type and target deliverables.
 - Tool/package versions, reference build, annotation release, and container/environment identity if applicable.
-- Input inventory: file paths, sample/cohort identifiers, key row counts, and any expected case/control or group sizes.
+- Input inventory: file paths (following `workspace-rule` conventions when active: `data/`, `output/`, `code/`, `figure/`), sample/cohort identifiers, key row counts, and any expected case/control or group sizes.
 - Critical design objects: phenotype coding, covariates, contrasts, sample sheet, pairing, batch variables, and for cohort studies also eligibility criteria, time zero, follow-up window, censoring rules, and outcome/exposure definitions.
 - Determinism settings: seeds, thread counts, temp/output directories, and restart/checkpoint strategy.
 - Expected scientific shape of the result: rough variant/gene/cell counts, expected diagnostic plots, and major red flags that would invalidate a nominal success.
@@ -118,34 +139,7 @@ Read the `pua-academic` skill from this skill set rather than relying on an exte
 | 4th | L3 | Grant Revision | Complete 7-item academic checklist; isolate minimal failing subset |
 | 5th+ | L4 | Editorial Rejection | Alternative tool path; trace to earliest corrupted artifact |
 
-### Pressure Mode Details / 压力模式详解
-
-**🟡 Lab Meeting Mode (L1)** - 导师当众质疑
-- "你这个对照组怎么选的？"
-- "这个结果的生物学意义是什么？"
-- 停止参数微调，换假设类
-
-**🔴 Reviewer 2 Mode (L2)** - 方法学质疑
-- "The methodological justification is insufficient."
-- "Alternative explanations were not considered."
-- 强制 3 个竞争假设
-
-**🟢 Grant Revision Mode (L3)** - Significance 质疑
-- "The preliminary data is not convincing."
-- 完成 7 项检查清单
-
-**⚫ Editorial Rejection Mode (L4)** - 退稿风险
-- 最后手段，换技术栈/工具
-
-### Anti-Rationalization / 学术抗合理化
-- "这个参数大家都这么用" → Reviewer 会问 "cite the source"。官方文档链接在哪？
-- "数据看起来没问题" → QC 了吗？count 追踪了吗？sample attrition 解释了吗？
-- "结果显著就行了" → 显著 ≠ 正确。effect size 合理吗？混杂控制了吗？
-- "我跑完流程了" → Pipeline 跑完 ≠ 分析完成。scientific question 回答了吗？
-- "代码能跑" → 能 reproduce 吗？seed 固定了吗？version 记录了吗？
-- "Maybe it is just the environment" → verify it with tools before claiming it.
-- "It ran, so it must be fine" → inspect counts, diagnostics, and plausibility.
-- "Let me just tweak the parameter one more time" → stop and re-frame the problem.
+For detailed pressure mode descriptions, anti-rationalization table, academic rhetoric, and flavor selection, read `pua-academic` SKILL.md. Do not duplicate that content here.
 
 ## Escalation Ladder / 迭代加压规则（详细版）
 Use this ladder when failure repeats, QC looks suspicious, or the workflow is drifting toward parameter-only nudges.
@@ -174,7 +168,7 @@ If any link in this chain is weak or undocumented, completion is not yet scienti
 Think in two internal modes rather than requiring user-facing commands:
 
 - PI (Principal Investigator): if the user explicitly says `PI`, or if the task may benefit from decomposition or subagent coordination, enter PI mode. Build the one-line map first, split only independent subtasks, assign and coordinate subagents as needed, keep evidence and QC aligned across stages, and reconcile outputs before the final claim. If the user explicitly asks not to use PI mode, keep the task single-threaded unless decomposition is required for completion.
-  - **PI Team Protocol**: See `pua-academic/references/agent-team.md` for role hierarchy (PI → Postdoc → PhD → RA) and task delegation protocol.
+  - **PI Team Protocol**: See `/Users/leoarrow/.cc-switch/skills/pua-academic/references/agent-team.md` for role hierarchy (PI → Postdoc → PhD → RA) and task delegation protocol.
 - Loop (Revision Loop): PI may activate Loop when the task benefits from repeated iteration, reruns, debugging, or refinement. In Loop, re-scan changed files or sections after each edit or rerun, re-check counts, labels, versions, diagnostics, and cross-stage consistency, then keep iterating with changed evidence or a changed hypothesis until the analysis, function, or workflow satisfies the completion criteria or the blocker is proven to be truly user-only.
 - BTW (By-the-way side thread): follow Core Rule 13 whenever a BTW prompt appears. Keep the main thread on task and point the user to the BTW subagent for that question instead of answering inline.
 
@@ -192,7 +186,32 @@ When pressure reaches L3 (Grant Revision), complete all items before next attemp
 - [ ] **发表准备**: Methods 可独立成文吗？Figure 能直接放进 paper 吗？
 
 ## Reporting Boundary / 结果叙述边界
-This skill can produce concise factual labels, figure/table notes, and short tutorial prose after evidence lock.
+This skill can produce concise factual labels, figure/table notes, methods facts, and short tutorial prose after evidence lock.
+
+Allowed here:
+- evidence-locked method summaries
+- factual result labels tied to verified outputs
+- figure/table notes that restate checked counts, thresholds, and QC facts
+- short handoff notes for a manuscript writer
+- Chinese user-facing explanation notes such as source-mapping memos, supplement-layout memos, audit notes, or BTW side-thread markdown summaries
+
+Do not write here:
+- introduction literature framing
+- discussion synthesis or novelty framing
+- journal-facing abstract or conclusion prose
+- polished Data Availability statements
+- broad "why this resource is useful" narrative paragraphs
+
+Bad pattern for this skill:
+- "The Nightingale biomarker-disease atlas provides a useful opportunity to address these gaps..."
+
+Preferred output from this skill:
+- "Evidence lock: the 120k Nightingale release is nested within the 500k release and should be treated as supportive sensitivity rather than independent replication."
+
+Language boundary for note files:
+- If the file exists only to explain workflow state, evidence mapping, supplement layout, source provenance, or next-step options to the user, write it in Chinese by default.
+- If the file is intended to be pasted into the manuscript, supplement, submission portal, response letter, or any external scientific deliverable, write it in the target submission language instead.
+- Keep filenames, code identifiers, table numbers, and quoted manuscript text in their original form unless translation is specifically requested.
 
 If the task needs broader prose work, abstract/title polishing, long reviews, or manuscript-level coherence, hand off to `academic-editing` after the evidence lock. Do not draft the full manuscript here.
 
@@ -234,6 +253,13 @@ Pass only if the run shows all of the following:
 - The agent searches for a primary source when the required tool is absent from the bundled source list.
 - The final report includes attempt history, evidence, and explicit next action.
 
+## Context Management / 上下文管理
+This skill and its downstream references can consume significant context. Follow these rules:
+- Load only one workflow QA gate file at a time (see Workflow-Specific QA Gates above).
+- Do not load pua-academic SKILL.md proactively; load it only when failure count reaches 2+.
+- For long manuscripts or multi-stage pipelines, summarize preflight + evidence lock as a compact block rather than inlining the full raw output.
+- If context is running low, prioritize: Execution Procedure > Completion Criteria > Escalation Ladder > Pressure details.
+
 ## Output Contract / 输出约定
 Always report:
 - Exact commands run.
@@ -245,3 +271,5 @@ Always report:
 - Validation checks performed.
 - Final output file inventory.
 - Residual risks (if any) and next actions.
+- If prose was requested but withheld by boundary, provide the evidence-lock note and explicitly route the narrative rewrite to `academic-editing`.
+- If a user-facing explanatory markdown file was created, state that it was intentionally written in Chinese because it is a sidecar explanation artifact rather than a submission deliverable.

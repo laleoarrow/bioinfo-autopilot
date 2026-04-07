@@ -149,13 +149,36 @@ Tell Claude: "Install bioinfo-autopilot and pua-academic according to instructio
 If you use [cc-switch](https://github.com/laleoarrow/cc-switch) for skill management:
 
 ```bash
-# Clone both repos
-git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/.cc-switch/skills/bioinfo-autopilot
-git clone https://github.com/laleoarrow/pua-academic.git ~/.cc-switch/skills/pua-academic
+# Clone both repos to a normal location
+git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/agents/bioinfo-autopilot
+git clone https://github.com/laleoarrow/pua-academic.git ~/agents/pua-academic
 
-# Create symlinks (cc-switch auto-manages this)
-# Or let cc-switch handle the linking automatically
+# Link the actual skill roots into cc-switch
+mkdir -p ~/.cc-switch/skills
+ln -s ~/agents/bioinfo-autopilot/skills/bioinfo-autopilot ~/.cc-switch/skills/bioinfo-autopilot
+ln -s ~/agents/pua-academic/skills/pua-academic ~/.cc-switch/skills/pua-academic
 ```
+
+Use `skills/<name>` as the install target. That directory is the canonical skill root and contains `SKILL.md` plus any relative assets such as `references/` or `agents/`.
+
+### Optional Vendor Catalog: bioSkills
+
+If you want `bioinfo-autopilot` to route into the imported `bioSkills`
+catalog when first-party guidance is not specific enough, see
+[`vendor/README.md`](vendor/README.md).
+
+Portable repo-local setup:
+
+```bash
+git clone https://github.com/GPTomics/bioSkills.git vendor/bioSkills
+```
+
+Upstream source:
+- [GPTomics/bioSkills](https://github.com/GPTomics/bioSkills)
+
+If you already maintain an adapted cc-switch vendor tree, keep using
+`~/.cc-switch/vendor/bioskills-library` instead of exposing `bioSkills` as a
+top-level skill.
 
 ### Option 2: Manual Install (Without cc-switch)
 
@@ -179,8 +202,8 @@ git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/agents/bioinfo-a
 git clone https://github.com/laleoarrow/pua-academic.git ~/agents/pua-academic
 
 # Create symlinks
-ln -s ~/agents/bioinfo-autopilot/codex/bioinfo-autopilot ~/.codex/skills/bioinfo-autopilot
-ln -s ~/agents/pua-academic/codex/pua-academic ~/.codex/skills/pua-academic
+ln -s ~/agents/bioinfo-autopilot/skills/bioinfo-autopilot ~/.codex/skills/bioinfo-autopilot
+ln -s ~/agents/pua-academic/skills/pua-academic ~/.codex/skills/pua-academic
 ```
 
 **Cursor:**
@@ -200,6 +223,9 @@ ls ~/.claude/skills/ | grep -E "bioinfo-autopilot|pua-academic"
 
 # Check Codex skills
 ls ~/.codex/skills/ | grep -E "bioinfo-autopilot|pua-academic"
+
+# Optional: check repo-local vendor catalog
+test -d vendor/bioSkills && echo "bioSkills vendor catalog present"
 ```
 
 ## Trigger Conditions

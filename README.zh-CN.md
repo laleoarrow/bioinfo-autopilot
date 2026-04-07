@@ -149,13 +149,36 @@ AI 在生物信息领域的三大问题：
 如果你使用 [cc-switch](https://github.com/laleoarrow/cc-switch) 管理 skills：
 
 ```bash
-# 克隆两个仓库
-git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/.cc-switch/skills/bioinfo-autopilot
-git clone https://github.com/laleoarrow/pua-academic.git ~/.cc-switch/skills/pua-academic
+# 先把两个仓库克隆到普通目录
+git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/agents/bioinfo-autopilot
+git clone https://github.com/laleoarrow/pua-academic.git ~/agents/pua-academic
 
-# 创建 symlinks（cc-switch 会自动管理）
-# 或让 cc-switch 自动处理链接
+# 再把真正的 skill 根目录链接进 cc-switch
+mkdir -p ~/.cc-switch/skills
+ln -s ~/agents/bioinfo-autopilot/skills/bioinfo-autopilot ~/.cc-switch/skills/bioinfo-autopilot
+ln -s ~/agents/pua-academic/skills/pua-academic ~/.cc-switch/skills/pua-academic
 ```
+
+安装目标应当使用 `skills/<name>`。这个目录才是规范 skill 根目录，除了 `SKILL.md` 之外还包含 `references/`、`agents/` 等相对资源。
+
+### 可选 vendor 目录：bioSkills
+
+如果你希望 `bioinfo-autopilot` 在本地一方技能不够具体时，自动路由到
+导入的 `bioSkills` 目录，请查看
+[`vendor/README.md`](vendor/README.md)。
+
+便携式仓库内安装方式：
+
+```bash
+git clone https://github.com/GPTomics/bioSkills.git vendor/bioSkills
+```
+
+上游地址：
+- [GPTomics/bioSkills](https://github.com/GPTomics/bioSkills)
+
+如果你已经在 cc-switch 中维护了适配后的中央 vendor 树，请继续使用
+`~/.cc-switch/vendor/bioskills-library`，不要把 `bioSkills` 作为顶层 skill
+暴露出去。
 
 ### 方式 2: 手动安装（无 cc-switch）
 
@@ -179,8 +202,8 @@ git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/agents/bioinfo-a
 git clone https://github.com/laleoarrow/pua-academic.git ~/agents/pua-academic
 
 # 创建 symlinks
-ln -s ~/agents/bioinfo-autopilot/codex/bioinfo-autopilot ~/.codex/skills/bioinfo-autopilot
-ln -s ~/agents/pua-academic/codex/pua-academic ~/.codex/skills/pua-academic
+ln -s ~/agents/bioinfo-autopilot/skills/bioinfo-autopilot ~/.codex/skills/bioinfo-autopilot
+ln -s ~/agents/pua-academic/skills/pua-academic ~/.codex/skills/pua-academic
 ```
 
 **Cursor:**
@@ -200,6 +223,9 @@ ls ~/.claude/skills/ | grep -E "bioinfo-autopilot|pua-academic"
 
 # 检查 Codex skills
 ls ~/.codex/skills/ | grep -E "bioinfo-autopilot|pua-academic"
+
+# 可选：检查仓库内 vendor 目录
+test -d vendor/bioSkills && echo "bioSkills vendor catalog present"
 ```
 
 ## 触发条件
