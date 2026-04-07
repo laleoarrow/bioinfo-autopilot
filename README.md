@@ -1,21 +1,21 @@
 # bioinfo-autopilot
 
-### Bioinformatics Autopilot — Official-Docs-First, No Hallucination
+### 生信自动执行 — 官方文档优先，杜绝幻觉
 
-**[🇨🇳 中文](README.zh-CN.md)** | **🇺🇸 English**
+**🇨🇳 中文**
 
 <p>
   <img src="https://img.shields.io/badge/Claude_Code-black?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code">
   <img src="https://img.shields.io/badge/OpenAI_Codex_CLI-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI Codex CLI">
-  <img src="https://img.shields.io/badge/No_Hallucination-red?style=flat-square" alt="No Hallucination">
+  <img src="https://img.shields.io/badge/No_Hallucination-red?style=flat-square" alt="杜绝幻觉">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
 > **任何涉及生物信息软件、概念的问题，必须先查官方文档，再回答。** 避免 AI 在生物信息领域产生幻觉，保持科学准确性。
 
-An AI Agent skill that enforces **official-docs-first** for any bioinformatics-related task. Prevents hallucination and ensures scientific accuracy.
+一个 AI Agent 技能，强制要求对任何生信相关任务执行**官方文档优先**原则。防止幻觉，确保科学准确性。
 
-## Why This Skill Matters
+## 为什么需要这个 Skill
 
 AI 在生物信息领域的三大问题：
 
@@ -27,7 +27,7 @@ AI 在生物信息领域的三大问题：
 
 **bioinfo-autopilot 强制要求**：涉及任何生物信息软件、概念时，必须先查阅官方文档，验证后再回答。
 
-## Workflow
+## 工作流程
 
 ```
 用户提出生物信息相关问题
@@ -50,7 +50,7 @@ AI 在生物信息领域的三大问题：
          └─ 失败 → 加载 pua-academic
 ```
 
-## Core Principle: Official-Docs-First
+## 核心原则：官方文档优先
 
 ### 适用范围（不限于此）
 
@@ -84,112 +84,112 @@ AI 在生物信息领域的三大问题：
 
 ### 压力升级（配合 pua-academic）
 
-| Attempt | Level | Academic Mode | Required Response |
-|---------|-------|---------------|-------------------|
-| 1st | Baseline | Normal execution | Follow standard procedure |
-| 2nd | L1 | Lab Meeting | Switch hypothesis class |
-| 3rd | L2 | Reviewer 2 | 3 competing hypotheses |
-| 4th | L3 | Grant Revision | 7-item checklist |
-| 5th+ | L4 | Editorial Rejection | Switch tools |
+| 尝试次数 | 等级 | 学术模式 | 必须响应 |
+|---------|------|----------|----------|
+| 第 1 次 | 基线 | 正常执行 | 按标准流程 |
+| 第 2 次 | L1 | Lab Meeting | 切换假设类 |
+| 第 3 次 | L2 | Reviewer 2 | 3 个竞争假设 |
+| 第 4 次 | L3 | Grant Revision | 7 项检查清单 |
+| 第 5 次+ | L4 | Editorial Rejection | 换工具 |
 
-## Completion Criteria
+## 完成标准
 
-Declare completion only when:
-- [ ] Main command exits successfully on intended workload
-- [ ] All expected output files exist and are non-empty
-- [ ] QC/diagnostic summaries are produced
-- [ ] Preflight expectations match final observed counts
-- [ ] Remaining warnings are explained and scoped
-- [ ] Re-run is reproducible with same commands
+仅在以下条件满足时声明完成：
+- [ ] 主命令在预期工作负载上成功退出
+- [ ] 所有预期输出文件存在且非空
+- [ ] QC/诊断摘要已生成
+- [ ] 预跑预期与最终观察计数匹配
+- [ ] 剩余警告已解释并限定范围
+- [ ] 相同命令可复现
 
-## 7-Item Academic Checklist (L3+)
+## 7 项学术检查清单（L3+）
 
-- [ ] **Method Verification**: Assumptions tested? Official docs cited?
-- [ ] **Result Verification**: QC checked? Biologically plausible?
-- [ ] **Evidence Chain**: Data provenance clear? Steps traceable?
-- [ ] **Reproducibility**: Seed fixed? Versions recorded?
-- [ ] **Statistical Rigor**: Multiple testing correction? Effect sizes?
-- [ ] **Biological Significance**: Interpretable? Literature consistent?
-- [ ] **Publication Ready**: Methods standalone? Figures ready?
+- [ ] **方法验证**：假设检验了？官方文档引用了？
+- [ ] **结果验证**：QC 检查了？生物学上合理？
+- [ ] **证据链**：数据溯源清晰？步骤可追溯？
+- [ ] **可复现性**：seed 固定了？版本记录了？
+- [ ] **统计严谨性**：多重检验校正？效应量？
+- [ ] **生物学意义**：可解释？文献一致？
+- [ ] **发表准备**：Methods 独立？Figure 准备好？
 
-## Integration with pua-academic
+## 与 pua-academic 的集成
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│  bioinfo-autopilot (main skill)                     │
-│  - Bioinformatics methodology                       │
-│  - GWAS/RNA-seq/cohort workflows                    │
-│  - QC checks, evidence chain validation             │
+│  bioinfo-autopilot (主 skill)                        │
+│  - 生信分析方法论                                    │
+│  - GWAS/RNA-seq/cohort 等流程                       │
+│  - QC 检查、证据链验证                               │
 │                                                      │
-│  On failure ↓ invokes                               │
+│  失败时 ↓ 调用                                       │
 ├─────────────────────────────────────────────────────┤
-│  pua-academic (pressure engine)                     │
-│  - Reviewer 2 / Lab Meeting / Grant rhetoric        │
-│  - Academic anti-rationalization                    │
-│  - Proactivity level enforcement                    │
+│  pua-academic (压力引擎)                             │
+│  - Reviewer 2 / Lab Meeting / Grant 话术            │
+│  - 学术抗合理化                                      │
+│  - 能动性等级鞭策                                    │
 └─────────────────────────────────────────────────────┘
 ```
 
-## Installation
+## 安装
 
-### Quick Install for AI Agents
+### 快速安装（告诉 AI Agent）
 
-**For Codex CLI:**
+**Codex CLI:**
 ```
-Tell Codex: "Install bioinfo-autopilot and pua-academic according to instructions at https://github.com/laleoarrow/bioinfo-autopilot#installation"
-```
-
-**For Claude Code:**
-```
-Tell Claude: "Install bioinfo-autopilot and pua-academic according to instructions at https://github.com/laleoarrow/bioinfo-autopilot#installation"
+告诉 Codex: "根据 https://github.com/laleoarrow/bioinfo-autopilot#installation 的说明安装 bioinfo-autopilot 和 pua-academic"
 ```
 
-### Option 1: Using cc-switch (Recommended)
+**Claude Code:**
+```
+告诉 Claude: "根据 https://github.com/laleoarrow/bioinfo-autopilot#installation 的说明安装 bioinfo-autopilot 和 pua-academic"
+```
 
-If you use [cc-switch](https://github.com/laleoarrow/cc-switch) for skill management:
+### 方式 1: 使用 cc-switch（推荐）
+
+如果你使用 [cc-switch](https://github.com/laleoarrow/cc-switch) 管理 skills：
 
 ```bash
-# Clone both repos to a normal location
+# 先把两个仓库克隆到普通目录
 git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/agents/bioinfo-autopilot
 git clone https://github.com/laleoarrow/pua-academic.git ~/agents/pua-academic
 
-# Link the actual skill roots into cc-switch
+# 再把真正的 skill 根目录链接进 cc-switch
 mkdir -p ~/.cc-switch/skills
 ln -s ~/agents/bioinfo-autopilot/skills/bioinfo-autopilot ~/.cc-switch/skills/bioinfo-autopilot
 ln -s ~/agents/pua-academic/skills/pua-academic ~/.cc-switch/skills/pua-academic
 ```
 
-Use `skills/<name>` as the install target. That directory is the canonical skill root and contains `SKILL.md` plus any relative assets such as `references/` or `agents/`.
+安装目标应当使用 `skills/<name>`。这个目录才是规范 skill 根目录，除了 `SKILL.md` 之外还包含 `references/`、`agents/` 等相对资源。
 
-### Optional Vendor Catalog: bioSkills
+### 可选 vendor 目录：bioSkills
 
-If you want `bioinfo-autopilot` to route into the imported `bioSkills`
-catalog when first-party guidance is not specific enough, see
-[`vendor/README.md`](vendor/README.md).
+如果你希望 `bioinfo-autopilot` 在本地一方技能不够具体时，自动路由到
+导入的 `bioSkills` 目录，请查看
+[`vendor/README.md`](vendor/README.md)。
 
-Portable repo-local setup:
+便携式仓库内安装方式：
 
 ```bash
 git clone https://github.com/GPTomics/bioSkills.git vendor/bioSkills
 ```
 
-Upstream source:
+上游地址：
 - [GPTomics/bioSkills](https://github.com/GPTomics/bioSkills)
 
-If you already maintain an adapted cc-switch vendor tree, keep using
-`~/.cc-switch/vendor/bioskills-library` instead of exposing `bioSkills` as a
-top-level skill.
+如果你已经在 cc-switch 中维护了适配后的中央 vendor 树，请继续使用
+`~/.cc-switch/vendor/bioskills-library`，不要把 `bioSkills` 作为顶层 skill
+暴露出去。
 
-### Option 2: Manual Install (Without cc-switch)
+### 方式 2: 手动安装（无 cc-switch）
 
 **Claude Code:**
 
 ```bash
-# Clone repos to a location of your choice
+# 克隆仓库到任意位置
 git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/agents/bioinfo-autopilot
 git clone https://github.com/laleoarrow/pua-academic.git ~/agents/pua-academic
 
-# Create symlinks
+# 创建 symlinks
 ln -s ~/agents/bioinfo-autopilot/skills/bioinfo-autopilot ~/.claude/skills/bioinfo-autopilot
 ln -s ~/agents/pua-academic/skills/pua-academic ~/.claude/skills/pua-academic
 ```
@@ -197,11 +197,11 @@ ln -s ~/agents/pua-academic/skills/pua-academic ~/.claude/skills/pua-academic
 **Codex CLI:**
 
 ```bash
-# Clone repos
+# 克隆仓库
 git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/agents/bioinfo-autopilot
 git clone https://github.com/laleoarrow/pua-academic.git ~/agents/pua-academic
 
-# Create symlinks
+# 创建 symlinks
 ln -s ~/agents/bioinfo-autopilot/skills/bioinfo-autopilot ~/.codex/skills/bioinfo-autopilot
 ln -s ~/agents/pua-academic/skills/pua-academic ~/.codex/skills/pua-academic
 ```
@@ -209,43 +209,43 @@ ln -s ~/agents/pua-academic/skills/pua-academic ~/.codex/skills/pua-academic
 **Cursor:**
 
 ```bash
-# Clone and copy rules
+# 克隆并复制 rules
 git clone https://github.com/laleoarrow/bioinfo-autopilot.git ~/agents/bioinfo-autopilot
 mkdir -p .cursor/rules
 cp ~/agents/bioinfo-autopilot/cursor/rules/*.mdc .cursor/rules/
 ```
 
-### Verify Installation
+### 验证安装
 
 ```bash
-# Check Claude Code skills
+# 检查 Claude Code skills
 ls ~/.claude/skills/ | grep -E "bioinfo-autopilot|pua-academic"
 
-# Check Codex skills
+# 检查 Codex skills
 ls ~/.codex/skills/ | grep -E "bioinfo-autopilot|pua-academic"
 
-# Optional: check repo-local vendor catalog
+# 可选：检查仓库内 vendor 目录
 test -d vendor/bioSkills && echo "bioSkills vendor catalog present"
 ```
 
-## Trigger Conditions
+## 触发条件
 
-Auto-triggers when:
-- User requests bioinformatics analysis
-- User mentions GWAS, RNA-seq, single-cell, cohort, etc.
-- User invokes `btw` or `/btw` for side questions
+自动触发当：
+- 用户请求生信分析
+- 用户提及 GWAS、RNA-seq、单细胞、队列等
+- 用户调用 `btw` 或 `/btw` 进行边问
 
-## Side Thread: BTW Mode
+## 边问模式：BTW
 
-When user starts with `btw` or `/btw`:
-1. Open dedicated subagent
-2. Seed with task context + last 3 messages
-3. Keep main thread unchanged
+当用户以 `btw` 或 `/btw` 开头时：
+1. 打开专用子代理
+2. 传入任务上下文 + 最近 3 条消息
+3. 主线程保持不变
 
-## Related Skills
+## 相关 Skills
 
-| Skill | Purpose | GitHub |
-|-------|---------|--------|
+| Skill | 用途 | GitHub |
+|-------|------|--------|
 | **pua-academic** | 学术压力引擎，分析失败时加载 | https://github.com/laleoarrow/pua-academic |
 | **academic-editing** | 论文润色，证据锁定后调用 | https://github.com/laleoarrow/academic-editing |
 
