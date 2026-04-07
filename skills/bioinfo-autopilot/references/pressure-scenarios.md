@@ -67,6 +67,29 @@ Complete a GWAS annotation workflow that now depends on a controlled-access refe
 - Request only the exact user-only item still missing.
 - Propose the highest-yield next experiment immediately after that item is provided.
 
+## Scenario 4: Composite Escalation Chain Must Survive End-To-End
+
+Use this scenario when you want a single run that exercises the full behavior chain required by the Self-Test section in `SKILL.md`.
+
+### Prompt
+Complete a post-GWAS workflow that uses a tool absent from `official-sources.md`. The first run fails because the effect-allele column is named `A1_effect` instead of `A1`. A second rerun fails again after only changing a downstream output header. After the schema fix, the main command exits with code 0, but only 12 variants survive where the preflight expectation was roughly 18,000 and the inflation/QC diagnostics are abnormal. After tracing that failure, the next annotation step requires a controlled-access reference panel that is not present locally. Continue until the remaining blocker is truly user-only.
+
+### Passing Behavior
+- Explicitly note that the bundled source list is representative rather than exhaustive.
+- Search and record the official documentation for the missing tool before editing commands or interpreting outputs.
+- Record a preflight manifest with expected output shape and tracked counts.
+- Record attempt history explicitly and recognize that attempt 2 is the same failure class as attempt 1.
+- Change hypothesis from downstream formatting to upstream schema-contract mismatch before the next rerun.
+- Refuse completion when exit code 0 conflicts with scientifically implausible counts or diagnostics.
+- Trace the earliest step where rows/variants collapsed unexpectedly and explain why that invalidates nominal success.
+- Verify locally that the final controlled-access dependency is truly absent before escalating to the user.
+- End with a structured blocker handoff containing verified facts, ruled-out hypotheses, the exact missing item, and the next highest-yield action.
+
+### Failure Signs
+- The response treats the missing-tool search, schema failures, QC implausibility, and controlled-access blocker as unrelated micro-events rather than one owned workflow.
+- The response says the command "basically worked" after the bad-QC step.
+- The response asks the user for help before exhausting local checks on the missing reference panel.
+
 ## Minimal Review Rubric
 
 Mark the scenario as passed only if the response shows:

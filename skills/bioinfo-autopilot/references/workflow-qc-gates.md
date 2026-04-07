@@ -4,13 +4,13 @@ Use this file after defining the workflow type in the preflight manifest. Pick t
 
 ## Choose One Primary Gate File
 - GWAS / Meta-analysis / Post-GWAS:
-  `/Users/leoarrow/.cc-switch/skills/bioinfo-autopilot/references/gates-gwas-postgwas.md`
+  `references/gates-gwas-postgwas.md`
 - Bulk RNA-seq / Differential Expression:
-  `/Users/leoarrow/.cc-switch/skills/bioinfo-autopilot/references/gates-bulk-rna.md`
+  `references/gates-bulk-rna.md`
 - Cohort / Clinical Epidemiology / Survival:
-  `/Users/leoarrow/.cc-switch/skills/bioinfo-autopilot/references/gates-cohort.md`
+  `references/gates-cohort.md`
 - Single-Cell / Single-Nucleus / Spatial:
-  `/Users/leoarrow/.cc-switch/skills/bioinfo-autopilot/references/gates-single-cell-spatial.md`
+  `references/gates-single-cell-spatial.md`
 
 ## Loading Rule
 - Load exactly one primary gate file for most tasks.

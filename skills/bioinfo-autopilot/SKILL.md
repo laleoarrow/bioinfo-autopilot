@@ -127,7 +127,7 @@ Do not read every gate file by default. This skill should narrow to the concrete
 ## Pressure Mechanism / 学术压力机制
 When failure repeats, QC looks suspicious, or the workflow stalls, **automatically load `pua-academic` skill** to apply academic pressure.
 
-Read the `pua-academic` skill from this skill set rather than relying on an external absolute path.
+Read the installed `pua-academic` skill from the shared skill tree on this machine rather than from an arbitrary project checkout.
 
 ### Pressure Escalation Ladder / 压力升级阶梯
 
@@ -168,7 +168,7 @@ If any link in this chain is weak or undocumented, completion is not yet scienti
 Think in two internal modes rather than requiring user-facing commands:
 
 - PI (Principal Investigator): if the user explicitly says `PI`, or if the task may benefit from decomposition or subagent coordination, enter PI mode. Build the one-line map first, split only independent subtasks, assign and coordinate subagents as needed, keep evidence and QC aligned across stages, and reconcile outputs before the final claim. If the user explicitly asks not to use PI mode, keep the task single-threaded unless decomposition is required for completion.
-  - **PI Team Protocol**: See `/Users/leoarrow/.cc-switch/skills/pua-academic/references/agent-team.md` for role hierarchy (PI → Postdoc → PhD → RA) and task delegation protocol.
+  - **PI Team Protocol**: See `~/.cc-switch/skills/pua-academic/references/agent-team.md` for role hierarchy (PI → Postdoc → PhD → RA) and task delegation protocol.
 - Loop (Revision Loop): PI may activate Loop when the task benefits from repeated iteration, reruns, debugging, or refinement. In Loop, re-scan changed files or sections after each edit or rerun, re-check counts, labels, versions, diagnostics, and cross-stage consistency, then keep iterating with changed evidence or a changed hypothesis until the analysis, function, or workflow satisfies the completion criteria or the blocker is proven to be truly user-only.
 - BTW (By-the-way side thread): follow Core Rule 13 whenever a BTW prompt appears. Keep the main thread on task and point the user to the BTW subagent for that question instead of answering inline.
 
@@ -243,8 +243,10 @@ Before saying "done", ask:
 - Would a skeptical collaborator be able to rerun this from the reported commands and reach the same files and summary metrics?
 
 ## Self-Test / 自测
-Before claiming this skill is improved, run at least one pressure scenario from:
+Before claiming this skill is improved, run one or more pressure scenarios from:
 `references/pressure-scenarios.md`
+
+If you want a single-pass validation that covers the full escalation chain, use the composite scenario in that file.
 
 Pass only if the run shows all of the following:
 - The agent changes hypothesis class after repeated same-pattern failure.
